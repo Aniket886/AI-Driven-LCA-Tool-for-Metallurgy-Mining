@@ -118,7 +118,11 @@ function App() {
               />
               <Route 
                 path="/compare" 
-                element={<ComparisonTool />} 
+                element={
+                  <ComparisonTool 
+                    assessmentHistory={assessmentHistory}
+                  />
+                } 
               />
               <Route 
                 path="/visualize" 

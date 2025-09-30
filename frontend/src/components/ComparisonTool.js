@@ -43,7 +43,7 @@ import {
 import Plot from 'react-plotly.js';
 import axios from 'axios';
 
-const ComparisonTool = ({ assessmentHistory }) => {
+const ComparisonTool = ({ assessmentHistory = [] }) => {
   const [selectedAssessments, setSelectedAssessments] = useState([]);
   const [comparisonResults, setComparisonResults] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -53,10 +53,14 @@ const ComparisonTool = ({ assessmentHistory }) => {
 
   useEffect(() => {
     // Filter assessments that have results
-    const validAssessments = assessmentHistory.filter(assessment => 
-      assessment.results && Object.keys(assessment.results).length > 0
-    );
-    setAvailableAssessments(validAssessments);
+    if (assessmentHistory && Array.isArray(assessmentHistory)) {
+      const validAssessments = assessmentHistory.filter(assessment => 
+        assessment.results && Object.keys(assessment.results).length > 0
+      );
+      setAvailableAssessments(validAssessments);
+    } else {
+      setAvailableAssessments([]);
+    }
   }, [assessmentHistory]);
 
   const handleAddAssessment = (assessmentIndex) => {
